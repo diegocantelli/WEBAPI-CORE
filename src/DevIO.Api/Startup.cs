@@ -20,6 +20,7 @@ namespace DevIO.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //Adicionando o contexto de BD do Entity Framework
             services.AddDbContext<MeuDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
