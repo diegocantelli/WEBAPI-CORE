@@ -30,6 +30,7 @@ namespace DevIO.Api
 
             services.WebApiConfig();
 
+            //Chamando o método que resolve as dependências necessárias para o projeto
             services.ResolveDependencies();
         }
 
