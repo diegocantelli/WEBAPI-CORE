@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DevIO.Api.Controllers
 {
+    
     [ApiController]
     public abstract class MainController : ControllerBase
     {
@@ -22,6 +23,8 @@ namespace DevIO.Api.Controllers
             return !_notificador.TemNotificacao();
         }
 
+        //implementação do método responsável por devolver uma mensagem customizada na requisição
+        //Irá ignorar o padrão do asp.net core, caso esteja configurado para suprimir os erros padrão
         protected ActionResult CustomResponse(object result = null)
         {
             if (OperacaoValida())
