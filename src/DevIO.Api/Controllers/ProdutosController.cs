@@ -134,6 +134,7 @@ namespace DevIO.Api.Controllers
             return CustomResponse(produto);
         }
 
+        //método responsável por fazer o upload de uma imagem
         private bool UploadArquivo(string arquivo, string imgNome)
         {
             if (string.IsNullOrEmpty(arquivo))
