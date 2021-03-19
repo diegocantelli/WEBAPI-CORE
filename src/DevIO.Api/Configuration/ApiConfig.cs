@@ -17,6 +17,7 @@ namespace DevIO.Api.Configuration
 
             });
 
+            //Habilitando o CORS para qualquer método, header e credencial
             services.AddCors(options =>
             {
                 options.AddPolicy("Development",
@@ -32,6 +33,8 @@ namespace DevIO.Api.Configuration
         public static IApplicationBuilder UseMvcConfiguration(this IApplicationBuilder app)
         {
             app.UseHttpsRedirection();
+
+            //Adicionando a configuração de CORS ao pipeline da API
             app.UseCors("Development");
             app.UseMvc();
 
