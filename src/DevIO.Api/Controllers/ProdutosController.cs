@@ -112,7 +112,7 @@ namespace DevIO.Api.Controllers
             return CustomResponse(produtoViewModel);
         }
 
-
+        //Aumentando o limite de tamanho dos arquivos que podem ser recebidos via POST 
         [RequestSizeLimit(40000000)]
         //[DisableRequestSizeLimit]
         [HttpPost("imagem")]
