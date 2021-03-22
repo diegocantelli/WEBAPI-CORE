@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevIO.Api.ViewModels
 {
+    //Decorando a classe para permitir que seja enviado no request um json com FormFile, coisa que não é permitida por padrão no WEBAPI
     [ModelBinder(typeof(JsonWithFilesFormDataModelBinder), Name = "produto")]
     public class ProdutoImagemViewModel
     {
