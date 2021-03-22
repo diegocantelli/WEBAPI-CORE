@@ -175,6 +175,7 @@ namespace DevIO.Api.Controllers
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
+                //Gravando o arquivo
                 await arquivo.CopyToAsync(stream);
             }
 
