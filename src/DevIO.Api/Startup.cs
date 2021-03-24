@@ -20,11 +20,10 @@ namespace DevIO.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //Adicionando o contexto de BD do Entity Framework
-            services.AddDbContext<MeuDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
+           
+
+            //Chamando o método responsável pela configurações do Identity
+            services.AddIdentityConfiguration(configuration: Configuration);
 
             //Configurando o Automapper
             services.AddAutoMapper(typeof(Startup));
