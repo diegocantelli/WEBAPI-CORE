@@ -45,6 +45,9 @@ namespace DevIO.Api
                 app.UseHsts();
             }
 
+            //Habilita a autenticação na aplicação
+            //precisa vir antes de UseMvcConfiguration 
+            app.UseAuthentication();
             app.UseMvcConfiguration();
         }
     }

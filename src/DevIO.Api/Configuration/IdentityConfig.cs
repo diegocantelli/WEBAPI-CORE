@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DevIO.Api.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,7 +16,15 @@ namespace DevIO.Api.Configuration
         {
             //Adicionando o contexto de BD do Entity Framework
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            //Adicionando o serviço do identity e o configurando
+            services.AddDefaultIdentity<IdentityUser>()
+                //permite criar "papeis/níveis" de usuários
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                //usado para gerar tokens para resetar senhas via email e etc
+                .AddDefaultTokenProviders();
             
             return services;
         }
