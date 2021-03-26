@@ -53,5 +53,27 @@ namespace DevIO.Api.Controllers
 
             return CustomResponse(registerUserViewModel);
         }
+
+        [HttpPost(entrar)]
+        public async Task<ActionResult> Login(LoginUserViewModel loginUserViewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(loginUserViewModel);
+
+            var result = await _signinManager
+                .PasswordSignInAsync(loginUserViewModel.Email, loginUserViewModel.Password, isPersistent: false, lockoutOnFailure: true);
+
+            if (result.Succeeded)
+            {
+                return CustomResponse(loginUserViewModel);
+            }
+
+            if (result.IsLockedOut)
+            {
+                NotificarErro("Usuário temporariamente bloqueado por tentativas inválidas");
+            }
+
+            NotificarErro("Usuário ou senha incorretos");
+            return CustomResponse(loginUserViewModel);
+        }
     }
 }
