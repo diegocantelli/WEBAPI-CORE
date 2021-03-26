@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevIO.Api.Controllers
 {
-    [Route("api/conta")]
+    [Route("api")]
     public class AuthController : MainController
     {
         private readonly SignInManager<IdentityUser> _signinManager;
@@ -23,8 +23,34 @@ namespace DevIO.Api.Controllers
             _userManager = userManager;
         }
 
+        [HttpPost("nova-conta")]
         public async Task<ActionResult> Registrar(RegisterUserViewModel registerUserViewModel)
         {
+            if (!ModelState.IsValid) return CustomResponse(registerUserViewModel);
+
+            var user = new IdentityUser
+            {
+                UserName = registerUserViewModel.Email,
+                Email = registerUserViewModel.Email,
+                EmailConfirmed = true
+            };
+
+            //UserManager é o objeto responsável por criar e manter usuários via Identity
+            var result = await _userManager.CreateAsync(user, registerUserViewModel.Password);
+
+            //Validando se o usuário foi criado com sucesso
+            if (result.Succeeded)
+            {
+                //Loga o usuário
+                await _signinManager.SignInAsync(user, false);
+                return CustomResponse(registerUserViewModel);
+            }
+
+            foreach (var error in result.Errors)
+            {
+                NotificarErro(error.Description);
+            }
+
             return CustomResponse(registerUserViewModel);
         }
     }
