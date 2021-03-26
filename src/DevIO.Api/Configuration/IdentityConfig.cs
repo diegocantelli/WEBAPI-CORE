@@ -1,4 +1,5 @@
 ﻿using DevIO.Api.Data;
+using DevIO.Api.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,8 @@ namespace DevIO.Api.Configuration
                 //permite criar "papeis/níveis" de usuários
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                //Configurando o identity para exibir as msgs de erro traduzidas
+                .AddErrorDescriber<IdentityMensagensPortugues>()
                 //usado para gerar tokens para resetar senhas via email e etc
                 .AddDefaultTokenProviders();
             
